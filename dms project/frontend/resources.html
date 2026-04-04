@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resources — DisasterShield</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="scanline-overlay"></div>
+
+<aside class="sidebar">
+  <div class="logo">
+    <span class="logo-icon">⚠</span>
+    <span class="logo-text">DISASTER<br><em>SHIELD</em></span>
+  </div>
+  <nav>
+    <a href="index.html" class="nav-item"><span class="nav-icon">◈</span> Dashboard</a>
+    <a href="report-incident.html" class="nav-item"><span class="nav-icon">◉</span> Report Incident</a>
+    <a href="resources.html" class="nav-item active"><span class="nav-icon">◧</span> Resources</a>
+    <a href="alerts.html" class="nav-item"><span class="nav-icon">◬</span> Alerts</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status-dot"></div> SYSTEM ONLINE
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">RESOURCE MANAGEMENT</h1>
+      <span class="page-sub">Track and deploy emergency resources</span>
+    </div>
+    <div class="topbar-right">
+      <button class="btn-primary" onclick="openAddResource()">+ ADD RESOURCE</button>
+    </div>
+  </header>
+
+  <!-- Resource Summary -->
+  <section class="stat-grid">
+    <div class="stat-card card-red">
+      <div class="stat-label">RESCUE TEAMS</div>
+      <div class="stat-value">12</div>
+      <div class="stat-trend">8 deployed / 4 standby</div>
+    </div>
+    <div class="stat-card card-orange">
+      <div class="stat-label">VEHICLES</div>
+      <div class="stat-value">34</div>
+      <div class="stat-trend">21 deployed / 13 available</div>
+    </div>
+    <div class="stat-card card-yellow">
+      <div class="stat-label">MEDICAL KITS</div>
+      <div class="stat-value">280</div>
+      <div class="stat-trend">140 dispatched</div>
+    </div>
+    <div class="stat-card card-green">
+      <div class="stat-label">SHELTERS</div>
+      <div class="stat-value">9</div>
+      <div class="stat-trend">Capacity: 4,500 people</div>
+    </div>
+  </section>
+
+  <!-- Add Resource Modal -->
+  <div id="add-resource-modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-title">ADD RESOURCE</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>RESOURCE NAME</label>
+          <input type="text" id="res-name" placeholder="e.g. Rescue Team Alpha"/>
+        </div>
+        <div class="form-group">
+          <label>TYPE</label>
+          <select id="res-type">
+            <option value="RESCUE_TEAM">Rescue Team</option>
+            <option value="VEHICLE">Vehicle</option>
+            <option value="MEDICAL">Medical Kit</option>
+            <option value="SHELTER">Shelter</option>
+            <option value="FOOD">Food Supply</option>
+            <option value="EQUIPMENT">Equipment</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>QUANTITY</label>
+          <input type="number" id="res-qty" value="1" min="1"/>
+        </div>
+        <div class="form-group">
+          <label>LOCATION</label>
+          <input type="text" id="res-location" placeholder="Depot / Zone"/>
+        </div>
+        <div class="form-group">
+          <label>ASSIGNED INCIDENT ID (optional)</label>
+          <input type="number" id="res-incident-id" placeholder="Leave blank if unassigned"/>
+        </div>
+        <div class="form-group">
+          <label>STATUS</label>
+          <select id="res-status">
+            <option value="AVAILABLE">Available</option>
+            <option value="DEPLOYED">Deployed</option>
+            <option value="MAINTENANCE">Maintenance</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-secondary" onclick="closeAddResource()">CANCEL</button>
+        <button class="btn-primary" onclick="submitResource()">SAVE RESOURCE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resource Table -->
+  <section class="table-section">
+    <div class="section-header">
+      <span class="section-title">ALL RESOURCES</span>
+      <div class="filter-row">
+        <select id="filter-type" onchange="loadResources()">
+          <option value="">All Types</option>
+          <option value="RESCUE_TEAM">Rescue Teams</option>
+          <option value="VEHICLE">Vehicles</option>
+          <option value="MEDICAL">Medical</option>
+          <option value="SHELTER">Shelters</option>
+        </select>
+      </div>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr><th>ID</th><th>NAME</th><th>TYPE</th><th>QTY</th><th>LOCATION</th><th>STATUS</th><th>INCIDENT</th><th>ACTION</th></tr>
+      </thead>
+      <tbody id="resource-table-body">
+        <tr><td colspan="8" style="text-align:center;padding:2rem;opacity:.5">Loading resources...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+const BASE = 'http://localhost:8080/disaster';
+
+function openAddResource() { document.getElementById('add-resource-modal').classList.remove('hidden'); }
+function closeAddResource() { document.getElementById('add-resource-modal').classList.add('hidden'); }
+
+async function loadResources() {
+  const type = document.getElementById('filter-type').value;
+  const url = type ? `${BASE}/ResourceServlet?type=${type}` : `${BASE}/ResourceServlet`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const tbody = document.getElementById('resource-table-body');
+    if (!data.length) { tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;opacity:.5">No resources found.</td></tr>`; return; }
+    tbody.innerHTML = data.map(r => `
+      <tr>
+        <td class="mono">#${r.id}</td>
+        <td>${r.name}</td>
+        <td>${r.type}</td>
+        <td>${r.quantity}</td>
+        <td>${r.location}</td>
+        <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
+        <td class="mono">${r.incidentId ? '#'+r.incidentId : '—'}</td>
+        <td><button class="btn-xs" onclick="deleteResource(${r.id})">✕</button></td>
+      </tr>`).join('');
+  } catch(e) {
+    // mock fallback
+    const mock = [
+      {id:1,name:'Alpha Rescue Team',type:'RESCUE_TEAM',quantity:15,location:'Depot A',status:'DEPLOYED',incidentId:3},
+      {id:2,name:'Relief Truck 07',type:'VEHICLE',quantity:1,location:'Warehouse B',status:'AVAILABLE',incidentId:null},
+      {id:3,name:'Medical Kit Batch-C',type:'MEDICAL',quantity:50,location:'Base Camp 2',status:'DEPLOYED',incidentId:5},
+    ];
+    document.getElementById('resource-table-body').innerHTML = mock.map(r => `
+      <tr>
+        <td class="mono">#${r.id}</td><td>${r.name}</td><td>${r.type}</td><td>${r.quantity}</td>
+        <td>${r.location}</td>
+        <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
+        <td class="mono">${r.incidentId?'#'+r.incidentId:'—'}</td>
+        <td><button class="btn-xs">✕</button></td>
+      </tr>`).join('');
+  }
+}
+
+async function submitResource() {
+  const body = {
+    name: document.getElementById('res-name').value,
+    type: document.getElementById('res-type').value,
+    quantity: document.getElementById('res-qty').value,
+    location: document.getElementById('res-location').value,
+    incidentId: document.getElementById('res-incident-id').value || null,
+    status: document.getElementById('res-status').value
+  };
+  try {
+    await fetch(`${BASE}/ResourceServlet`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });
+  } catch(e) {}
+  closeAddResource();
+  loadResources();
+}
+
+async function deleteResource(id) {
+  if (!confirm('Remove this resource?')) return;
+  try { await fetch(`${BASE}/ResourceServlet?id=${id}`, {method:'DELETE'}); } catch(e){}
+  loadResources();
+}
+
+loadResources();
+</script>
+</body>
+</html>

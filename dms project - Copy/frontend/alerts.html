@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alerts — DisasterShield</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="scanline-overlay"></div>
+
+<aside class="sidebar">
+  <div class="logo">
+    <span class="logo-icon">⚠</span>
+    <span class="logo-text">DISASTER<br><em>SHIELD</em></span>
+  </div>
+  <nav>
+    <a href="index.html" class="nav-item"><span class="nav-icon">◈</span> Dashboard</a>
+    <a href="report-incident.html" class="nav-item"><span class="nav-icon">◉</span> Report Incident</a>
+    <a href="resources.html" class="nav-item"><span class="nav-icon">◧</span> Resources</a>
+    <a href="alerts.html" class="nav-item active"><span class="nav-icon">◬</span> Alerts</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status-dot"></div> SYSTEM ONLINE
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">ALERT CENTER</h1>
+      <span class="page-sub">Broadcast public emergency alerts</span>
+    </div>
+    <div class="topbar-right">
+      <button class="btn-primary" onclick="openBroadcast()">📡 BROADCAST ALERT</button>
+    </div>
+  </header>
+
+  <!-- Broadcast Modal -->
+  <div id="broadcast-modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-title">BROADCAST NEW ALERT</div>
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>ALERT TITLE</label>
+          <input type="text" id="alert-title" placeholder="e.g. Cyclone Warning — Coastal Areas"/>
+        </div>
+        <div class="form-group">
+          <label>LEVEL</label>
+          <select id="alert-level">
+            <option value="INFO">ℹ Info</option>
+            <option value="WARNING">⚠ Warning</option>
+            <option value="DANGER">🔴 Danger</option>
+            <option value="EVACUATION">🚨 Evacuation Order</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>TARGET REGION</label>
+          <input type="text" id="alert-region" placeholder="e.g. Chennai North Zone"/>
+        </div>
+        <div class="form-group full-width">
+          <label>MESSAGE</label>
+          <textarea id="alert-message" rows="4" placeholder="Alert message to broadcast to public..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>LINKED INCIDENT ID (optional)</label>
+          <input type="number" id="alert-incident-id" placeholder="Incident #"/>
+        </div>
+        <div class="form-group">
+          <label>EXPIRES AT</label>
+          <input type="datetime-local" id="alert-expires"/>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-secondary" onclick="closeBroadcast()">CANCEL</button>
+        <button class="btn-primary" onclick="submitAlert()">📡 BROADCAST NOW</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Alerts -->
+  <section class="alerts-grid" id="alerts-grid">
+    <div style="text-align:center;padding:3rem;opacity:.5;grid-column:1/-1">Loading alerts...</div>
+  </section>
+
+  <!-- Alerts History Table -->
+  <section class="table-section" style="margin-top:2rem">
+    <div class="section-header">
+      <span class="section-title">ALERT HISTORY</span>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr><th>ID</th><th>TITLE</th><th>LEVEL</th><th>REGION</th><th>SENT AT</th><th>STATUS</th><th>ACTION</th></tr>
+      </thead>
+      <tbody id="alert-history-body">
+        <tr><td colspan="7" style="text-align:center;padding:2rem;opacity:.5">Loading...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script src="js/alerts.js"></script>
+</body>
+</html>

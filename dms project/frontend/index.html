@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DisasterShield — Command Center</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="scanline-overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <span class="logo-icon">⚠</span>
+    <span class="logo-text">DISASTER<br><em>SHIELD</em></span>
+  </div>
+  <nav>
+    <a href="index.html" class="nav-item active"><span class="nav-icon">◈</span> Dashboard</a>
+    <a href="report-incident.html" class="nav-item"><span class="nav-icon">◉</span> Report Incident</a>
+    <a href="resources.html" class="nav-item"><span class="nav-icon">◧</span> Resources</a>
+    <a href="alerts.html" class="nav-item"><span class="nav-icon">◬</span> Alerts</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status-dot"></div> SYSTEM ONLINE
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">COMMAND CENTER</h1>
+      <span class="page-sub" id="live-time"></span>
+    </div>
+    <div class="topbar-right">
+      <div class="alert-badge" onclick="window.location='alerts.html'">
+        <span class="pulse-ring"></span>
+        <span id="alert-count">3</span> ACTIVE ALERTS
+      </div>
+    </div>
+  </header>
+
+  <!-- STAT CARDS -->
+  <section class="stat-grid">
+    <div class="stat-card card-red">
+      <div class="stat-label">ACTIVE INCIDENTS</div>
+      <div class="stat-value" id="stat-incidents">--</div>
+      <div class="stat-trend">↑ 2 since yesterday</div>
+    </div>
+    <div class="stat-card card-orange">
+      <div class="stat-label">RESOURCES DEPLOYED</div>
+      <div class="stat-value" id="stat-resources">--</div>
+      <div class="stat-trend">→ 74% utilization</div>
+    </div>
+    <div class="stat-card card-yellow">
+      <div class="stat-label">ALERTS SENT</div>
+      <div class="stat-value" id="stat-alerts">--</div>
+      <div class="stat-trend">↑ 5 in last hour</div>
+    </div>
+    <div class="stat-card card-green">
+      <div class="stat-label">RESOLVED TODAY</div>
+      <div class="stat-value" id="stat-resolved">--</div>
+      <div class="stat-trend">✓ Response time: 18 min avg</div>
+    </div>
+  </section>
+
+  <!-- CHARTS ROW -->
+  <section class="charts-row">
+    <div class="chart-card wide">
+      <div class="chart-title">INCIDENT TIMELINE — LAST 7 DAYS</div>
+      <canvas id="incidentChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">BY DISASTER TYPE</div>
+      <canvas id="typeChart"></canvas>
+    </div>
+  </section>
+
+  <!-- RECENT INCIDENTS TABLE -->
+  <section class="table-section">
+    <div class="section-header">
+      <span class="section-title">RECENT INCIDENTS</span>
+      <a href="report-incident.html" class="btn-primary">+ NEW INCIDENT</a>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th><th>TYPE</th><th>LOCATION</th><th>SEVERITY</th><th>STATUS</th><th>REPORTED AT</th><th>ACTION</th>
+        </tr>
+      </thead>
+      <tbody id="incident-table-body">
+        <tr><td colspan="7" style="text-align:center;padding:2rem;opacity:.5">Loading incidents...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

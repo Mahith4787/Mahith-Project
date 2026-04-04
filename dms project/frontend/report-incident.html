@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report Incident — DisasterShield</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="scanline-overlay"></div>
+
+<aside class="sidebar">
+  <div class="logo">
+    <span class="logo-icon">⚠</span>
+    <span class="logo-text">DISASTER<br><em>SHIELD</em></span>
+  </div>
+  <nav>
+    <a href="index.html" class="nav-item"><span class="nav-icon">◈</span> Dashboard</a>
+    <a href="report-incident.html" class="nav-item active"><span class="nav-icon">◉</span> Report Incident</a>
+    <a href="resources.html" class="nav-item"><span class="nav-icon">◧</span> Resources</a>
+    <a href="alerts.html" class="nav-item"><span class="nav-icon">◬</span> Alerts</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status-dot"></div> SYSTEM ONLINE
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">REPORT INCIDENT</h1>
+      <span class="page-sub">File a new disaster or emergency</span>
+    </div>
+  </header>
+
+  <section class="form-section">
+    <div class="form-card">
+      <div id="form-message" class="form-message hidden"></div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>INCIDENT TYPE</label>
+          <select id="inc-type">
+            <option value="">— Select Type —</option>
+            <option value="FLOOD">🌊 Flood</option>
+            <option value="EARTHQUAKE">🌍 Earthquake</option>
+            <option value="FIRE">🔥 Fire</option>
+            <option value="CYCLONE">🌀 Cyclone</option>
+            <option value="LANDSLIDE">⛰ Landslide</option>
+            <option value="TSUNAMI">🌊 Tsunami</option>
+            <option value="DROUGHT">☀ Drought</option>
+            <option value="CHEMICAL">☣ Chemical Spill</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>SEVERITY LEVEL</label>
+          <div class="severity-selector">
+            <label class="sev-opt sev-low"><input type="radio" name="severity" value="LOW"> LOW</label>
+            <label class="sev-opt sev-med"><input type="radio" name="severity" value="MEDIUM"> MEDIUM</label>
+            <label class="sev-opt sev-high"><input type="radio" name="severity" value="HIGH"> HIGH</label>
+            <label class="sev-opt sev-crit"><input type="radio" name="severity" value="CRITICAL"> CRITICAL</label>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label>LOCATION / ADDRESS</label>
+          <input type="text" id="inc-location" placeholder="e.g. Anna Nagar, Chennai, Tamil Nadu"/>
+        </div>
+
+        <div class="form-group">
+          <label>LATITUDE</label>
+          <input type="number" id="inc-lat" placeholder="13.0827" step="0.0001"/>
+        </div>
+
+        <div class="form-group">
+          <label>LONGITUDE</label>
+          <input type="number" id="inc-lng" placeholder="80.2707" step="0.0001"/>
+        </div>
+
+        <div class="form-group">
+          <label>REPORTED BY</label>
+          <input type="text" id="inc-reporter" placeholder="Name / Unit ID"/>
+        </div>
+
+        <div class="form-group">
+          <label>CONTACT NUMBER</label>
+          <input type="text" id="inc-contact" placeholder="+91 XXXXXXXXXX"/>
+        </div>
+
+        <div class="form-group full-width">
+          <label>DESCRIPTION</label>
+          <textarea id="inc-description" rows="4" placeholder="Describe the incident, affected population, immediate needs..."></textarea>
+        </div>
+
+        <div class="form-group full-width">
+          <label>CASUALTIES (ESTIMATED)</label>
+          <div class="casualties-row">
+            <div class="cas-input">
+              <span>Dead</span>
+              <input type="number" id="inc-dead" value="0" min="0"/>
+            </div>
+            <div class="cas-input">
+              <span>Injured</span>
+              <input type="number" id="inc-injured" value="0" min="0"/>
+            </div>
+            <div class="cas-input">
+              <span>Missing</span>
+              <input type="number" id="inc-missing" value="0" min="0"/>
+            </div>
+            <div class="cas-input">
+              <span>Displaced</span>
+              <input type="number" id="inc-displaced" value="0" min="0"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-secondary" onclick="resetForm()">CLEAR FORM</button>
+        <button class="btn-primary" onclick="submitIncident()">⚡ SUBMIT INCIDENT</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/incident.js"></script>
+</body>
+</html>
