@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:8080/disaster';
+const BASE = '/disaster';
 
 async function submitIncident() {
   const type     = document.getElementById('inc-type').value;

@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:8080/disaster';
+const BASE = '/disaster';
 
 function openBroadcast()  { document.getElementById('broadcast-modal').classList.remove('hidden'); }
 function closeBroadcast() { document.getElementById('broadcast-modal').classList.add('hidden'); }

@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:8080/disaster';
+const BASE = '/disaster';
 
 // Live clock
 function updateClock() {

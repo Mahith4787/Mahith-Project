@@ -1,0 +1,183 @@
+{
+  "incidents": [
+    {
+      "id": 1,
+      "type": "FLOOD",
+      "severity": "HIGH",
+      "location": "Velachery, Chennai",
+      "latitude": 12.9815,
+      "longitude": 80.218,
+      "description": "Heavy rainfall caused flooding in low-lying areas. Multiple residents stranded.",
+      "reported_by": "System Alert",
+      "contact_number": "100",
+      "dead_count": 0,
+      "injured_count": 12,
+      "missing_count": 2,
+      "displaced_count": 150,
+      "status": "ACTIVE",
+      "reported_at": "2025-03-23 08:14"
+    },
+    {
+      "id": 2,
+      "type": "FIRE",
+      "severity": "CRITICAL",
+      "location": "Guindy Industrial Estate",
+      "latitude": 13.0102,
+      "longitude": 80.2157,
+      "description": "Chemical fire reported at a manufacturing plant. Structural risk high.",
+      "reported_by": "Fire Warden",
+      "contact_number": "101",
+      "dead_count": 2,
+      "injured_count": 45,
+      "missing_count": 5,
+      "displaced_count": 300,
+      "status": "ACTIVE",
+      "reported_at": "2025-03-23 09:32"
+    },
+    {
+      "id": 3,
+      "type": "CYCLONE",
+      "severity": "MEDIUM",
+      "location": "Ennore Port",
+      "latitude": 13.2208,
+      "longitude": 80.3235,
+      "description": "Port operations suspended due to high wind speeds. Coastal alert active.",
+      "reported_by": "IMD",
+      "contact_number": "044-12345678",
+      "dead_count": 0,
+      "injured_count": 0,
+      "missing_count": 0,
+      "displaced_count": 50,
+      "status": "ACTIVE",
+      "reported_at": "2025-03-23 11:05"
+    },
+    {
+      "id": 4,
+      "type": "EARTHQUAKE",
+      "severity": "LOW",
+      "location": "Tambaram",
+      "latitude": 12.9231,
+      "longitude": 80.1404,
+      "description": "Mild tremors felt. No structural damage reported.",
+      "reported_by": "Local Resident",
+      "contact_number": "9876543210",
+      "dead_count": 0,
+      "injured_count": 0,
+      "missing_count": 0,
+      "displaced_count": 0,
+      "status": "RESOLVED",
+      "reported_at": "2025-03-22 16:48"
+    },
+    {
+      "id": 5,
+      "type": "EARTHQUAKE",
+      "severity": "LOW",
+      "location": "chennai tamilnadu",
+      "latitude": "1333.233",
+      "longitude": "1234",
+      "description": "mahith got accident",
+      "reported_by": "asdf",
+      "contact_number": "+91 87121 45983",
+      "dead_count": "8",
+      "injured_count": "5",
+      "missing_count": "7",
+      "displaced_count": "89",
+      "status": "ACTIVE",
+      "reported_at": "2026-04-05 14:27:56"
+    },
+    {
+      "id": 6,
+      "type": "CYCLONE",
+      "severity": "HIGH",
+      "location": "cece",
+      "latitude": 0,
+      "longitude": 0,
+      "description": "asdf",
+      "reported_by": "asdf",
+      "contact_number": "asdf",
+      "dead_count": 0,
+      "injured_count": 0,
+      "missing_count": 0,
+      "displaced_count": 0,
+      "status": "ACTIVE",
+      "reported_at": "2026-04-05 14:29:11"
+    },
+    {
+      "id": 7,
+      "type": "DROUGHT",
+      "severity": "CRITICAL",
+      "location": "asdf",
+      "latitude": 0,
+      "longitude": 0,
+      "description": "asdf",
+      "reported_by": "asdf",
+      "contact_number": "asdf",
+      "dead_count": 0,
+      "injured_count": 0,
+      "missing_count": 0,
+      "displaced_count": 0,
+      "status": "ACTIVE",
+      "reported_at": "2026-04-05 14:29:44"
+    }
+  ],
+  "resources": [
+    {
+      "id": 1,
+      "name": "Rescue Team Alpha",
+      "type": "RESCUE_TEAM",
+      "quantity": 1,
+      "location": "Velachery",
+      "status": "DEPLOYED",
+      "incident_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Medical Bus #3",
+      "type": "MEDICAL",
+      "quantity": 1,
+      "location": "Guindy",
+      "status": "DEPLOYED",
+      "incident_id": 2
+    },
+    {
+      "id": 3,
+      "name": "Fire Engine #7",
+      "type": "VEHICLE",
+      "quantity": 1,
+      "location": "Guindy",
+      "status": "DEPLOYED",
+      "incident_id": 2
+    },
+    {
+      "id": 4,
+      "name": "Earthmover",
+      "type": "EQUIPMENT",
+      "quantity": 2,
+      "location": "Warehouse A",
+      "status": "AVAILABLE",
+      "incident_id": null
+    }
+  ],
+  "alerts": [
+    {
+      "id": 1,
+      "title": "Severe Rain Alert",
+      "level": "DANGER",
+      "region": "Chennai South",
+      "message": "Water logging risk high. Residents in Velachery and Madipakkam should stay indoors.",
+      "status": "ACTIVE",
+      "incident_id": 1,
+      "sent_at": "2025-03-23 07:00"
+    },
+    {
+      "id": 2,
+      "title": "Evacuation Order",
+      "level": "EVACUATION",
+      "region": "Guindy Industrial",
+      "message": "Evacuate 500m radius of Sector B immediately due to chemical fumes.",
+      "status": "ACTIVE",
+      "incident_id": 2,
+      "sent_at": "2025-03-23 10:15"
+    }
+  ]
+}
