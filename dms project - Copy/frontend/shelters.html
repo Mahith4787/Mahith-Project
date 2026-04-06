@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shelter Management — DisasterShield</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <style>
+    #map {
+        height: 400px;
+        width: 100%;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        margin-bottom: 24px;
+    }
+    .badge-full { color: var(--accent-red); border-color: var(--accent-red); background: rgba(255,45,45,0.08); }
+    .badge-nearly-full { color: var(--accent-orange); border-color: var(--accent-orange); background: rgba(255,122,26,0.08); }
+  </style>
+</head>
+<body>
+
+<div class="scanline-overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <span class="logo-icon">⚠</span>
+    <span class="logo-text">DISASTER<br><em>SHIELD</em></span>
+  </div>
+  <nav>
+    <a href="index.html" class="nav-item"><span class="nav-icon">◈</span> Dashboard</a>
+    <a href="report-incident.html" class="nav-item"><span class="nav-icon">◉</span> Report Incident</a>
+    <a href="resources.html" class="nav-item"><span class="nav-icon">◧</span> Resources</a>
+    <a href="alerts.html" class="nav-item"><span class="nav-icon">◬</span> Alerts</a>
+    <a href="medical-camps.html" class="nav-item"><span class="nav-icon">✚</span> Medical Camps</a>
+    <a href="emergency-contacts.html" class="nav-item"><span class="nav-icon">☎</span> Emergency Contacts</a>
+    <a href="shelters.html" class="nav-item active"><span class="nav-icon">🏠</span> Shelters</a>
+    <a href="relief-distribution.html" class="nav-item"><span class="nav-icon">📦</span> Relief Distribution</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status-dot"></div> SYSTEM ONLINE
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">SHELTER MANAGEMENT</h1>
+      <span class="page-sub" id="live-time">SAFE HAVENS & EVACUATION CENTERS</span>
+    </div>
+    <div class="topbar-right">
+        <button class="btn-primary" onclick="showAddModal()">+ ADD SHELTER</button>
+    </div>
+  </header>
+
+  <section class="form-section">
+    <div id="map"></div>
+
+    <div class="table-section" style="padding: 0;">
+        <div class="section-header">
+            <span class="section-title">ACTIVE SHELTERS</span>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>LOCATION</th>
+                    <th>CAPACITY</th>
+                    <th>OCCUPANCY</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody id="shelters-table-body">
+                <tr><td colspan="5" style="text-align:center;padding:2rem;opacity:.5">Loading shelters...</td></tr>
+            </tbody>
+        </table>
+    </div>
+  </section>
+
+</main>
+
+<!-- ADD SHELTER MODAL -->
+<div id="addModal" class="modal hidden">
+    <div class="modal-card">
+        <h2 class="modal-title">REGISTER NEW SHELTER</h2>
+        <form id="add-shelter-form">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label>Shelter Name</label>
+                    <input type="text" name="name" required placeholder="e.g. West Community Center">
+                </div>
+                <div class="form-group full-width">
+                    <label>Location Area</label>
+                    <input type="text" name="location" required placeholder="e.g. Sector 12, Main Street">
+                </div>
+                <div class="form-group">
+                    <label>Latitude</label>
+                    <input type="number" step="any" name="latitude" required placeholder="13.0827">
+                </div>
+                <div class="form-group">
+                    <label>Longitude</label>
+                    <input type="number" step="any" name="longitude" required placeholder="80.2707">
+                </div>
+                <div class="form-group">
+                    <label>Total Capacity</label>
+                    <input type="number" name="capacity" required placeholder="e.g. 1000">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="hideAddModal()">CANCEL</button>
+                <button type="submit" class="btn-primary">REGISTER SHELTER</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/shelters.js"></script>
+
+</body>
+</html>

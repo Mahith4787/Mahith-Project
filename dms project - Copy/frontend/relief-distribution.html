@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relief Distribution — DisasterShield</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <style>
+    #map {
+        height: 400px; width: 100%;
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        margin-bottom: 24px;
+    }
+    .resource-list {
+        list-style: none;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        margin-top: 8px;
+    }
+    .resource-list li {
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .resource-val { color: var(--accent-green); }
+    .status-distributing { color: var(--accent-green); }
+    .status-low { color: var(--accent-orange); font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="scanline-overlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo">
+    <span class="logo-icon">⚠</span>
+    <span class="logo-text">DISASTER<br><em>SHIELD</em></span>
+  </div>
+  <nav>
+    <a href="index.html" class="nav-item"><span class="nav-icon">◈</span> Dashboard</a>
+    <a href="report-incident.html" class="nav-item"><span class="nav-icon">◉</span> Report Incident</a>
+    <a href="resources.html" class="nav-item"><span class="nav-icon">◧</span> Resources</a>
+    <a href="alerts.html" class="nav-item"><span class="nav-icon">◬</span> Alerts</a>
+    <a href="medical-camps.html" class="nav-item"><span class="nav-icon">✚</span> Medical Camps</a>
+    <a href="emergency-contacts.html" class="nav-item"><span class="nav-icon">☎</span> Emergency Contacts</a>
+    <a href="shelters.html" class="nav-item"><span class="nav-icon">🏠</span> Shelters</a>
+    <a href="relief-distribution.html" class="nav-item active"><span class="nav-icon">📦</span> Relief Distribution</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="status-dot"></div> SYSTEM ONLINE
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1 class="page-title">RELIEF DISTRIBUTION</h1>
+      <span class="page-sub">FOOD, WATER & SUPPLIES MONITORING</span>
+    </div>
+    <div class="topbar-right">
+        <button class="btn-primary" onclick="showDonateModal()">+ DONATE SUPPLIES</button>
+    </div>
+  </header>
+
+  <section class="form-section">
+    <div id="map"></div>
+
+    <div class="table-section" style="padding: 0;">
+        <div class="section-header">
+            <span class="section-title">SUPPLY CENTERS & STOCK</span>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>CENTER NAME</th>
+                    <th>LOCATION</th>
+                    <th>STOCK PREVIEW</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody id="distribution-table-body">
+                <tr><td colspan="5" style="text-align:center;padding:2rem;opacity:.5">Loading supply centers...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Donations List -->
+    <div class="table-section" style="padding: 0; margin-top: 40px;">
+        <div class="section-header">
+            <span class="section-title">RECENT DONATIONS / REQUESTS</span>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ITEM</th>
+                    <th>QTY</th>
+                    <th>DONOR/RECIPIENT</th>
+                    <th>CENTER</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody id="donations-table-body">
+                <tr><td colspan="5" style="text-align:center;padding:1.5rem;opacity:.3">No recent activity.</td></tr>
+            </tbody>
+        </table>
+    </div>
+  </section>
+</main>
+
+<!-- DONATE MODAL -->
+<div id="donateModal" class="modal hidden">
+    <div class="modal-card">
+        <h2 class="modal-title">DONATE RELIEF SUPPLIES</h2>
+        <form id="donate-form">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label>Select Center</label>
+                    <select name="center_id" id="donate-center-select" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Item Category</label>
+                    <select name="item" required>
+                        <option value="Food Packets">Food Packets</option>
+                        <option value="Water Bottles">Water Bottles</option>
+                        <option value="Clothes/Blankets">Clothes/Blankets</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Other">Other Supply</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" name="quantity" required placeholder="e.g. 50">
+                </div>
+                <div class="form-group full-width">
+                    <label>Donor Name (Optional)</label>
+                    <input type="text" name="donor" placeholder="Your Name or Organization">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" onclick="hideDonateModal()">CANCEL</button>
+                <button type="submit" class="btn-primary">SUBMIT DONATION</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/relief-distribution.js"></script>
+</body>
+</html>

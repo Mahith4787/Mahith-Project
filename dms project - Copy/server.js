@@ -150,6 +150,84 @@ app.post('/disaster/ResourceServlet', (req, res) => {
     res.status(201).json(newRes);
 });
 
+// --- Medical Camp Routes ---
+app.get('/disaster/MedicalCampServlet', (req, res) => {
+    const db = readDB();
+    res.json(db.medical_camps || []);
+});
+
+app.post('/disaster/MedicalCampServlet', (req, res) => {
+    const db = readDB();
+    if (!db.medical_camps) db.medical_camps = [];
+    const newCamp = {
+        id: db.medical_camps.length > 0 ? Math.max(...db.medical_camps.map(c => c.id)) + 1 : 1,
+        name: req.body.name,
+        location: req.body.location,
+        latitude: parseFloat(req.body.latitude || 0),
+        longitude: parseFloat(req.body.longitude || 0),
+        doctors: req.body.doctors,
+        medicines: req.body.medicines,
+        capacity: parseInt(req.body.capacity || 0),
+        occupancy: 0
+    };
+    db.medical_camps.push(newCamp);
+    writeDB(db);
+    res.status(201).json(newCamp);
+});
+
+// --- Emergency Contact Routes ---
+app.get('/disaster/EmergencyContactServlet', (req, res) => {
+    const db = readDB();
+    res.json(db.emergency_contacts || []);
+});
+
+// --- Shelter Routes ---
+app.get('/disaster/ShelterServlet', (req, res) => {
+    const db = readDB();
+    res.json(db.shelters || []);
+});
+
+app.post('/disaster/ShelterServlet', (req, res) => {
+    const db = readDB();
+    if (!db.shelters) db.shelters = [];
+    const newShelter = {
+        id: db.shelters.length > 0 ? Math.max(...db.shelters.map(s => s.id)) + 1 : 1,
+        name: req.body.name,
+        location: req.body.location,
+        latitude: parseFloat(req.body.latitude || 0),
+        longitude: parseFloat(req.body.longitude || 0),
+        capacity: parseInt(req.body.capacity || 0),
+        occupancy: 0,
+        status: 'ACTIVE'
+    };
+    db.shelters.push(newShelter);
+    writeDB(db);
+    res.status(201).json(newShelter);
+});
+
+// --- Relief Routes ---
+app.get('/disaster/ReliefServlet', (req, res) => {
+    const db = readDB();
+    res.json({ centers: db.relief_centers || [], donations: db.relief_donations || [] });
+});
+
+app.post('/disaster/ReliefServlet/Donate', (req, res) => {
+    const db = readDB();
+    if (!db.relief_donations) db.relief_donations = [];
+    const newDonation = {
+        id: db.relief_donations.length > 0 ? Math.max(...db.relief_donations.map(d => d.id)) + 1 : 1,
+        center_id: parseInt(req.body.center_id),
+        item: req.body.item,
+        quantity: parseInt(req.body.quantity),
+        donor: req.body.donor || 'Anonymous',
+        status: 'PENDING',
+        at: new Date().toISOString()
+    };
+    db.relief_donations.push(newDonation);
+    writeDB(db);
+    res.status(201).json(newDonation);
+});
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });

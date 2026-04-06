@@ -179,5 +179,103 @@
       "incident_id": 2,
       "sent_at": "2025-03-23 10:15"
     }
+  ],
+  "medical_camps": [
+    {
+      "id": 1,
+      "name": "City General Rescue Camp",
+      "location": "Central Park, Chennai",
+      "latitude": 13.0827,
+      "longitude": 80.2707,
+      "doctors": "Dr. Smith, Dr. Jones",
+      "medicines": "Aspirin, Antibiotics, First Aid Kits",
+      "capacity": 500,
+      "occupancy": 120
+    },
+    {
+      "id": 2,
+      "name": "East Coast Relief Center",
+      "location": "Marina Beach, Chennai",
+      "latitude": 13.0477,
+      "longitude": 80.2824,
+      "doctors": "Dr. Kumar",
+      "medicines": "Bandages, Antiseptics",
+      "capacity": 300,
+      "occupancy": 150
+    },
+    {
+      "id": 3,
+      "name": "red cross one",
+      "location": "nuclear reactor 5",
+      "latitude": 31.0013,
+      "longitude": 35.1445,
+      "doctors": "nuclear reactor",
+      "medicines": "Insulin,metamoriphg",
+      "capacity": 800,
+      "occupancy": 0
+    }
+  ],
+  "emergency_contacts": [
+    { "id": 1, "name": "Police Control Room", "number": "100", "type": "POLICE" },
+    { "id": 2, "name": "Fire Station (General)", "number": "101", "type": "FIRE" },
+    { "id": 3, "name": "Ambulance Service", "number": "108", "type": "AMBULANCE" },
+    { "id": 4, "name": "Women Helpline", "number": "1091", "type": "HELPLINE" },
+    { "id": 5, "name": "State Emergency Center", "number": "1070", "type": "EMERGENCY" },
+    { "id": 6, "name": "Apollo Hospital Chennai", "number": "04428293333", "type": "HOSPITAL" }
+  ],
+  "shelters": [
+    {
+      "id": 1,
+      "name": "St. Andrews High School Shelter",
+      "location": "Saidapet, Chennai",
+      "latitude": 13.0189,
+      "longitude": 80.2224,
+      "capacity": 1000,
+      "occupancy": 450,
+      "status": "ACTIVE"
+    },
+    {
+      "id": 2,
+      "name": "Government Community Hall",
+      "location": "T. Nagar, Chennai",
+      "latitude": 13.0418,
+      "longitude": 80.2341,
+      "capacity": 500,
+      "occupancy": 490,
+      "status": "NEARLY_FULL"
+    },
+    {
+      "id": 3,
+      "name": "Public Library Basement",
+      "location": "Anna Salai, Chennai",
+      "latitude": 13.0597,
+      "longitude": 80.2526,
+      "capacity": 300,
+      "occupancy": 50,
+      "status": "ACTIVE"
+    }
+  ],
+  "relief_centers": [
+    {
+      "id": 1,
+      "name": "Central Food Hub",
+      "location": "Egmore, Chennai",
+      "latitude": 13.0792,
+      "longitude": 80.2599,
+      "items": { "food_packets": 1200, "water_liters": 5000, "clothing_kits": 300 },
+      "status": "DISTRIBUTING"
+    },
+    {
+      "id": 2,
+      "name": "Coastal Relief Point",
+      "location": "Mylapore",
+      "latitude": 13.0333,
+      "longitude": 80.2667,
+      "items": { "food_packets": 400, "water_liters": 1500, "clothing_kits": 50 },
+      "status": "LOW_STOCK"
+    }
+  ],
+  "relief_donations": [
+    { "id": 1, "center_id": 2, "item": "Water", "quantity": 1000, "status": "PENDING" }
   ]
 }
