@@ -120,9 +120,9 @@ function renderIncidentRows(tbody, data) {
       <td class="mono">#${r.id}</td>
       <td>${r.type}</td>
       <td>${r.location}</td>
-      <td><span class="badge badge-${r.severity.toLowerCase()}">${r.severity}</span></td>
-      <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
-      <td class="mono">${r.reportedAt}</td>
+      <td><span class="badge badge-${(r.severity || 'LOW').toLowerCase()}">${r.severity}</span></td>
+      <td><span class="badge badge-${(r.status || 'ACTIVE').toLowerCase()}">${r.status}</span></td>
+      <td class="mono">${r.reported_at || r.reportedAt || 'N/A'}</td>
       <td>
         <button class="btn-xs" onclick="updateStatus(${r.id}, 'RESOLVED')">✓ Resolve</button>
       </td>

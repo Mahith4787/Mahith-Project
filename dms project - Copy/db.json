@@ -14,7 +14,7 @@
       "injured_count": 12,
       "missing_count": 2,
       "displaced_count": 150,
-      "status": "ACTIVE",
+      "status": "RESOLVED",
       "reported_at": "2025-03-23 08:14"
     },
     {
@@ -31,7 +31,7 @@
       "injured_count": 45,
       "missing_count": 5,
       "displaced_count": 300,
-      "status": "ACTIVE",
+      "status": "RESOLVED",
       "reported_at": "2025-03-23 09:32"
     },
     {
@@ -48,7 +48,7 @@
       "injured_count": 0,
       "missing_count": 0,
       "displaced_count": 50,
-      "status": "ACTIVE",
+      "status": "RESOLVED",
       "reported_at": "2025-03-23 11:05"
     },
     {
@@ -82,7 +82,7 @@
       "injured_count": "5",
       "missing_count": "7",
       "displaced_count": "89",
-      "status": "ACTIVE",
+      "status": "RESOLVED",
       "reported_at": "2026-04-05 14:27:56"
     },
     {
@@ -99,7 +99,7 @@
       "injured_count": 0,
       "missing_count": 0,
       "displaced_count": 0,
-      "status": "ACTIVE",
+      "status": "RESOLVED",
       "reported_at": "2026-04-05 14:29:11"
     },
     {
@@ -116,8 +116,59 @@
       "injured_count": 0,
       "missing_count": 0,
       "displaced_count": 0,
-      "status": "ACTIVE",
+      "status": "RESOLVED",
       "reported_at": "2026-04-05 14:29:44"
+    },
+    {
+      "id": 8,
+      "type": "EARTHQUAKE",
+      "severity": "MEDIUM",
+      "location": "hghg",
+      "latitude": "11",
+      "longitude": 0,
+      "description": "ew",
+      "reported_by": "ew",
+      "contact_number": "e",
+      "dead_count": 0,
+      "injured_count": 0,
+      "missing_count": 0,
+      "displaced_count": 0,
+      "status": "RESOLVED",
+      "reported_at": "2026-04-06 13:47:41"
+    },
+    {
+      "id": 9,
+      "type": "FIRE",
+      "severity": "LOW",
+      "location": "sdfg",
+      "latitude": "23",
+      "longitude": "23",
+      "description": "asdf",
+      "reported_by": "sdfg",
+      "contact_number": "",
+      "dead_count": "0",
+      "injured_count": "0",
+      "missing_count": "0",
+      "displaced_count": "0",
+      "status": "RESOLVED",
+      "reported_at": "2026-04-06 13:51:16"
+    },
+    {
+      "id": 10,
+      "type": "FIRE",
+      "severity": "LOW",
+      "location": "sdf",
+      "latitude": 0,
+      "longitude": 0,
+      "description": "asdf",
+      "reported_by": "asdf",
+      "contact_number": "asdf",
+      "dead_count": "0",
+      "injured_count": "0",
+      "missing_count": "0",
+      "displaced_count": "0",
+      "status": "RESOLVED",
+      "reported_at": "2026-04-06 13:53:39"
     }
   ],
   "resources": [
@@ -216,12 +267,42 @@
     }
   ],
   "emergency_contacts": [
-    { "id": 1, "name": "Police Control Room", "number": "100", "type": "POLICE" },
-    { "id": 2, "name": "Fire Station (General)", "number": "101", "type": "FIRE" },
-    { "id": 3, "name": "Ambulance Service", "number": "108", "type": "AMBULANCE" },
-    { "id": 4, "name": "Women Helpline", "number": "1091", "type": "HELPLINE" },
-    { "id": 5, "name": "State Emergency Center", "number": "1070", "type": "EMERGENCY" },
-    { "id": 6, "name": "Apollo Hospital Chennai", "number": "04428293333", "type": "HOSPITAL" }
+    {
+      "id": 1,
+      "name": "Police Control Room",
+      "number": "100",
+      "type": "POLICE"
+    },
+    {
+      "id": 2,
+      "name": "Fire Station (General)",
+      "number": "101",
+      "type": "FIRE"
+    },
+    {
+      "id": 3,
+      "name": "Ambulance Service",
+      "number": "108",
+      "type": "AMBULANCE"
+    },
+    {
+      "id": 4,
+      "name": "Women Helpline",
+      "number": "1091",
+      "type": "HELPLINE"
+    },
+    {
+      "id": 5,
+      "name": "State Emergency Center",
+      "number": "1070",
+      "type": "EMERGENCY"
+    },
+    {
+      "id": 6,
+      "name": "Apollo Hospital Chennai",
+      "number": "04428293333",
+      "type": "HOSPITAL"
+    }
   ],
   "shelters": [
     {
@@ -262,7 +343,11 @@
       "location": "Egmore, Chennai",
       "latitude": 13.0792,
       "longitude": 80.2599,
-      "items": { "food_packets": 1200, "water_liters": 5000, "clothing_kits": 300 },
+      "items": {
+        "food_packets": 1200,
+        "water_liters": 5000,
+        "clothing_kits": 300
+      },
       "status": "DISTRIBUTING"
     },
     {
@@ -271,11 +356,21 @@
       "location": "Mylapore",
       "latitude": 13.0333,
       "longitude": 80.2667,
-      "items": { "food_packets": 400, "water_liters": 1500, "clothing_kits": 50 },
+      "items": {
+        "food_packets": 400,
+        "water_liters": 1500,
+        "clothing_kits": 50
+      },
       "status": "LOW_STOCK"
     }
   ],
   "relief_donations": [
-    { "id": 1, "center_id": 2, "item": "Water", "quantity": 1000, "status": "PENDING" }
+    {
+      "id": 1,
+      "center_id": 2,
+      "item": "Water",
+      "quantity": 1000,
+      "status": "PENDING"
+    }
   ]
 }
